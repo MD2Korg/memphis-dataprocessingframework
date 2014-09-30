@@ -55,7 +55,7 @@ rangeZ=maxZ-minZ;
 %%%new features, seems more robust
 minOFmin=min([minX,minY,minZ]);
 maxOFmax=max([maxX,maxY,maxZ]);
-maxOFmin=max([minX,minY,minZ])
+maxOFmin=max([minX,minY,minZ]);
 minOFmax=min([maxX,maxY,maxZ]);
 maxRange=max([rangeX,rangeY,rangeZ]);
 minRange=min([rangeX,rangeY,rangeZ]);

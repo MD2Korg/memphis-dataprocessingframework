@@ -30,6 +30,7 @@ for s=slist
     offset=offset+max(R.sensor{s}.sample);
 end
 %plot cress data
+%{
 [T,ia,ic]=unique(R.cress.data(:,13));
 for i=1:length(ia)
     start=datenum(R.cress.data(ia(i),13));
@@ -38,7 +39,7 @@ for i=1:length(ia)
     plot_signal([endt endt],[0 offset],'r',2,0);
     text(start,0,'CressSmoking','fontsize',18,'rotation',90);
 end
-
+%}
 legend(h,legend_text,'Interpreter', 'none');
 xlabel('Time');
 ylabel('Magnitude');
