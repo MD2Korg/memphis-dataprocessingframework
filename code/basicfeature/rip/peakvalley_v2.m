@@ -22,14 +22,14 @@ up_intercept_index=[];
 down_intercept_index=[];
 Timewindow=8;  % In second, TImewindow should include at least one breathe cycle
 windowlength=round(Timewindow*21.33);
-plot(sample,'r');hold on;
+%plot(sample,'r');hold on;
 %% Moving Average Curve MAC from filtered samples
 MAC=[];
 for i=(windowlength+1):1:length(sample)-(windowlength+1)
     MAC(end+1) = mean(sample(i-windowlength:i+windowlength)); % Moving Average Curve over window
 end
 j=(windowlength+1):1:length(sample)-(windowlength+1);
-plot(j,MAC,'k','Linewidth',2)
+%plot(j,MAC,'k','Linewidth',2)
 
 %% MAC Intercept (Up and Down Intercept)
 for i=2:length(MAC)
@@ -54,8 +54,8 @@ end
 if isempty(DI)
     return;
 end
-plot(UI,sample(UI),'m^','MarkerFaceColor','m');
-plot(DI,sample(DI),'bv','MarkerFaceColor','b');
+%plot(UI,sample(UI),'m^','MarkerFaceColor','m');
+%plot(DI,sample(DI),'bv','MarkerFaceColor','b');
 
 %% Peak-Valley
 for i=1:length(DI)-1  % As UI>DI, set in Intercept_outlier_detector; Down Intercept comes first
@@ -84,13 +84,13 @@ for i=1:length(DI)-1  % As UI>DI, set in Intercept_outlier_detector; Down Interc
     valley_index=[valley_index vlindex];
 end
 
-plot(peak_index,sample(peak_index),'bo');
-plot(valley_index,sample(valley_index),'go');
+%plot(peak_index,sample(peak_index),'bo');
+%plot(valley_index,sample(valley_index),'go');
 
 %% Locate Actual Valley using maximum slope algorithm which is located between current valley and next peak
 
 valley_index=confirm_valley(peak_index,valley_index,UI,DI,sample);
-plot(valley_index,sample(valley_index),'gx','MarkerSize',14);
+%plot(valley_index,sample(valley_index),'gx','MarkerSize',14);
 
 
 %% Inspiration Expiration Amplitude outlier removal
@@ -143,7 +143,7 @@ for i=1:length(Expiration_amplitude)
     end
 end
 peak_ind=[peak_ind final_peak_index(end)];
-plot(peak_ind,sample(peak_ind),'bo','MarkerFaceColor','k');
-plot(valley_ind,sample(valley_ind),'ro','MarkerFaceColor','k');
+%plot(peak_ind,sample(peak_ind),'bo','MarkerFaceColor','k');
+%plot(valley_ind,sample(valley_ind),'ro','MarkerFaceColor','k');
 
 end

@@ -98,7 +98,7 @@ fr=[];
 Down_intercept=[];
 Up_intercept=[];
 for i=1:length(DI)-1
-    fr=60/(timestamp(DI(i+1))-timestamp(DI(i)))
+    fr=60/(timestamp(DI(i+1))-timestamp(DI(i)));
     if 8<=fr<=65
         Down_intercept=[Down_intercept DI(i)];
         Up_intercept=[Up_intercept UI(i)];

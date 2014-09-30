@@ -14,6 +14,7 @@ function G=config()
 % See the License for the specific language governing permissions and
 % limitations under the License.
 %%
+
 %% Configure java Paths
 allpath=javaclasspath('-dynamic');
 c=size(allpath,2);
@@ -30,7 +31,7 @@ addpath(genpath('.')); % include all directory in matlab path.
 %% Number of samples per packet in a TOS file
 G.SAMPLE_TOS=5;
 %% Data Quality
-G.QUALITY.GOOD = 0;G.QUALITY.MISSING = 4;G.QUALITY.NOISE = 1;G.QUALITY.BAND_LOOSE = 2;G.QUALITY.BAND_OFF = 3;
+G.QUALITY.GOOD = 0;G.QUALITY.MISSING = 1;G.QUALITY.NOISE = 2;G.QUALITY.BAND_LOOSE = 3;G.QUALITY.BAND_OFF = 4;
 G.QUALITY.BAD = 2;
 
 %% Set Root Directory
@@ -44,5 +45,3 @@ G.SELFREPORT=config_selfreport(); % Set Self report information
 G.LABSTUDY=config_labstudy(); % set table name of lab study
 G.FEATURE=config_feature(); %  set list of features
 G.MODEL=config_model(G); % set window size and others for specific model
-G.REPORT=config_report(G); % set components for which is required to generate reoport
-G.LABEL=config_mark();

@@ -1,3 +1,5 @@
+
+%% Data Processing Framework
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Copyright 2014 University of Memphis
 %
@@ -13,50 +15,38 @@
 % See the License for the specific language governing permissions and
 % limitations under the License.
 %%
-%% Data Processing Framework
-% Overview: starting point of the framework.
+
+% File Name: main.m
+% Overview: Starting point of data processing
+% Task: 
+% 1. Load configuration value in G.
+% 2. Convert raw data to features.         
 clear all
-%% Basic Configureation files
-%
-G=config();
-%G=config_run_memphis(G);
-%G=config_run_jhu(G);
-G=config_run_nida(G);
+
+G=config(); %Load basic configureation information (Ex. sensor info, db location, filename)
+G=config_run(G); % Load information that we want to run.
 
 PS_LIST=G.PS_LIST;
-%report_selfreport_all(G,'formattedraw','report',PS_LIST,G.SELFREPORT.SMKID);
-%report_formattedraw_short(G,'formattedraw','report',PS_LIST);
-%return;
+
 pno=size(PS_LIST);
 for p=1:pno
 	pid=char(PS_LIST{p,1});
 	slist=PS_LIST{p,2};
 	for s=slist
 		sid=char(s);
-        %figure;plot_frmtraw(G,pid,sid,'formattedraw',[G.SENSOR.R_RIPID,G.SENSOR.R_ECGID,G.SENSOR.R_GSRID,G.SENSOR.R_AMBID]);
-%        plot_selfreport(G,pid,sid,'formattedraw',[1,2]);
-       % plot_labstudymark(G,pid,sid,'formattedraw');
-        %disp('abc');
-%      	main_formattedraw(G,pid,sid,'raw','formattedraw');
-%        main_formatteddata(G,pid,sid,'formattedraw','formatteddata');
-%        figure;plot_frmtdata(G,pid,sid,'formatteddata',[G.SENSOR.R_RIPID,G.SENSOR.R_ECGID]);
+        
+      	main_formattedraw(G,pid,sid,'raw','formattedraw'); % read raw data and save it in mat file.        
+        figure;plot_frmtraw(G,pid,sid,'formattedraw',[G.SENSOR.R_RIPID,G.SENSOR.R_ECGID]); % plor raw sensor data
 
-		%main_basicfeature(G,pid,sid,'formatteddata','basicfeature');
-%        figure;plot_basicfeature(G,pid,sid,'basicfeature',[G.SENSOR.R_RIPID,G.SENSOR.R_ECGID]);
+        main_formatteddata(G,pid,sid,'formattedraw','formatteddata'); % correct timestamp, interpolate and measure quality
+        figure;plot_frmtdata(G,pid,sid,'formatteddata',[G.SENSOR.R_RIPID,G.SENSOR.R_ECGID]); % plot raw sensor data with quality measurement   
 
-        %main_window(G,pid,sid,'basicfeature','window');
-        main_feature(G,pid,sid,'window','feature');
-        %save_feature2text_v3(G,pid,sid,'feature','report')
-%{
-        list_feature=[G.FEATURE.R_ECG.VRVL,G.FEATURE.R_ECG.LFHF,...
-                G.FEATURE.R_ECG.HRP1,G.FEATURE.R_ECG.HRP2,...
-                G.FEATURE.R_ECG.HRP3,G.FEATURE.R_ECG.RRMN,...
-                G.FEATURE.R_ECG.RRMD,G.FEATURE.R_ECG.RRQD,...
-                G.FEATURE.R_ECG.RR80,G.FEATURE.R_ECG.RR20,...
-                G.FEATURE.R_ECG.RRCT];
-        report_feature(G,pid,sid,'feature','report',G.FEATURE.R_ECGID,list_feature);
-%}
-       %main_model(G,pid,sid,'feature','model');
+		main_basicfeature(G,pid,sid,'formatteddata','basicfeature'); % calculate peak valley and RR Interval
+        figure;plot_basicfeature(G,pid,sid,'basicfeature',[G.SENSOR.R_RIPID,G.SENSOR.R_ECGID]); % plot signal, peak valley and RR interval
 
+        main_window(G,pid,sid,'basicfeature','window',G.RUN.MODEL); % divide the data into window (window is defined in MODEL in "config_model.m" file
+        main_feature(G,pid,sid,'window','feature',G.RUN.MODEL);  % calculate features for each window
+
+        report_feature(G,pid,sid,'feature','report',[G.FEATURE.R_RIPID,G.FEATURE.R_ECGID]); % save feature values as csv file (location: data/report/*.csv)
 	end;
 end

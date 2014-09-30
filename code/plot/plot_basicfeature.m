@@ -29,7 +29,6 @@ for s=slist
         plot_signal(B.sensor{s}.peakvalley.matlabtime,B.sensor{s}.peakvalley.sample,'ro',1,offset);
         legend_text{i+1}=B.sensor{s}.NAME;
         offset=offset+max(B.sensor{s}.sample);
-        i=i+1;
 %{
         offset=offset-quantile(B.sensor{s}.feature{G.FEATURE.R_RIP.RESPDURATION},.20)+500;
         h(i+1)=plot_signal(B.sensor{s}.peakvalley.matlabtime(1:2:end-2),B.sensor{s}.feature{G.FEATURE.R_RIP.RESPDURATION},[color{rem(i,length(color)+1)+1}(1) '.'],1,offset);

@@ -13,9 +13,10 @@
 % See the License for the specific language governing permissions and
 % limitations under the License.
 %%
+
 %% Data Processing Framework
 % Run this program to generate "session_def.csv" file which is used to find
-% the number of sessions for participants. This program reads "participant id"
+% the number of sessions for participants. This program reads "participant id" 
 % which is defined in "config_run.m" file. For example, if the
 % STUDYNAME="memphis" and "G.PS_LIST" contains "p01", then, this program
 % reads files from "DataProcessingFramework/data/memphis/raw/p01" directory
@@ -25,14 +26,14 @@
 % participant directory contains 2 days of data, there will be two session
 % named "s01", "s02".
 % To calculate the features for these two sessions, "G.PS_LIST" needs to be
-% changed as:
+% changed as: 
 % G.PS_LIST={{'p01'},{'s01','s02'}};
 
 clear all
 %% Basic Configureation files
 %
-G=config();
-G=config_run_nida(G);
+G=config();  
+G=config_run(G);
 
 PS_LIST=G.PS_LIST;
 pno=size(PS_LIST);

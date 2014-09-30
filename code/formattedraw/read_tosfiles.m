@@ -50,11 +50,11 @@ if row==0
     return;
 end
 
-fprintf('{%d: ', row);
+%fprintf('{%d: ', row);
 for i=G.RUN.FRMTRAW.SENSORLIST_TOS % defined in "config_run.m". Read and store only those that are mentioned there.
     [row]=size(all_sensor,1);
     onesensor=all_sensor(all_sensor(1:row,1) == G.SENSOR.ID(i).TOS_CHANNEL,:); % sensor id "G.SENSOR.ID" of each different type of sensor is defined in "config/config_sensor.m"
-    fprintf('%d(%d),', i, size(onesensor,1));
+ %   fprintf('%d(%d),', i, size(onesensor,1));
     if issorted(onesensor(:,7))==0
         %        fprintf('...sorted');
         onesensor=sortrows(onesensor,7); % sort by timestamp. Make sure that in case inconsistency in receiving order, it is corrected
@@ -67,7 +67,7 @@ for i=G.RUN.FRMTRAW.SENSORLIST_TOS % defined in "config_run.m". Read and store o
         sensor{i}.matlabtime=convert_timestamp_matlabtimestamp(G,sensor{i}.timestamp);
     end
 end
-fprintf('}');
+%fprintf('}');
 end
 
 function [sample,timestamp]=assign_timestamp(G,onesensor,freq)
